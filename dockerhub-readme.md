@@ -15,7 +15,7 @@ root/
 ```yml
 services:
   app:
-    image: xxx
+    image: ricardobchaves6/assemblyai-poc:latest
     container_name: assemblyai
     env_file: .env
     volumes:
