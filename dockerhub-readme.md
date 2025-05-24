@@ -10,22 +10,24 @@ root/
 │   └── audio.m4a
 ├── .env
 ├── docker-compose.yml
-└── after_run_your_txt_file_will_be_here.txt
+└── result/
+    └── after_run_your_txt_file_will_be_here.txt
 ```
 ```yml
 services:
   app:
-    image: xxx
+    image: ricardobchaves6/assemblyai-poc:latest
     container_name: assemblyai
     env_file: .env
     volumes:
-      - .:/app 
+      - ./audio:/app/audio
+      - ./result:/app/result
 ```
 `.env` file should contain the following variables:
 ```env
 ASSEMBLYAI_API_KEY="YOUR_ASSEMBLYAI_API_KEY"
 AUDIO_FILE="./audio/audio.m4a"
-TRANSCRIPT_FILE="./transcript.txt"
+TRANSCRIPT_FILE="./result/transcript.txt"
 ```
 Run compose
 ```bash
@@ -38,7 +40,7 @@ Create a `.env` file in the current directory with the following content:
 ```env
 ASSEMBLYAI_API_KEY="YOUR_ASSEMBLYAI_API_KEY"
 AUDIO_FILE="./audio/audio.m4a"
-TRANSCRIPT_FILE="./transcript.txt"
+TRANSCRIPT_FILE="./result/transcript.txt"
 ```
 ```env
 
@@ -46,6 +48,7 @@ TRANSCRIPT_FILE="./transcript.txt"
 docker run --rm \
   --name assemblyai \
   --env-file .env \
-  -v "$(pwd)":/app \
+  -v "$(pwd)"/audio:/app/audio \
+  -v "$(pwd)"/result:/app/result \
   image123:latest
 ```
